@@ -48,9 +48,6 @@ xcode_version = get_xcode_version(version_regex)
 xcode_major   = xcode_version.split('.')[0]
 hostname      = get_hostname()
 labels        = ['iOS', 'xcode-' + xcode_version, 'xcode-' + xcode_major, 'macos-' + os_version, 'node-' + hostname.lower()]
-if xcode_major == '11':
-	labels.append('iOS13')
-	pass
 
 server = jenkins.Jenkins(jenkins_host, username=username, password=password)
 if not server.node_exists(hostname):
