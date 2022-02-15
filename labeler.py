@@ -54,9 +54,9 @@ version_regex = re.compile('([0-9]+\.[0-9]+)')
 os_version    = get_macos_version(version_regex)
 xcode_version = get_xcode_version(version_regex)
 xcode_major   = xcode_version.split('.')[0]
-hostname      = get_hostname().lower()
+hostname      = get_hostname()
 arch          = get_arch().lower()
-labels        = ['iOS', 'xcode-' + xcode_version, 'xcode-' + xcode_major, 'macos-' + os_version, 'node-' + hostname, 'arch-' + arch]
+labels        = ['iOS', 'xcode-' + xcode_version, 'xcode-' + xcode_major, 'macos-' + os_version, 'node-' + hostname.lower(), 'arch-' + arch]
 
 server = jenkins.Jenkins(jenkins_host, username=username, password=password)
 if not server.node_exists(hostname):
