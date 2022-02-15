@@ -35,7 +35,7 @@ def get_hostname():
     return hostname
 
 def get_arch():
-    arch = cmd('uname -p').read().strip()
+    arch = cmd('uname -m').read().strip()
     if not hostname:
         print('Can\'t find architecture')
         exit(255)
