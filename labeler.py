@@ -1,5 +1,6 @@
 #!/bin/env python3
 
+from platform import architecture
 import re
 import jenkins
 
@@ -33,6 +34,13 @@ def get_hostname():
         exit(255)
     return hostname
 
+def get_arch():
+    arch = cmd('uname -p').read().strip()
+    if not hostname:
+        print('Can\'t find architecture')
+        exit(255)
+    return arch
+
 def get_new_config(server, node, labels):
     labels_str = ' '.join(labels) + ' ' + default_labels
     config_string = server.get_node_config(node)
@@ -46,8 +54,9 @@ version_regex = re.compile('([0-9]+\.[0-9]+)')
 os_version    = get_macos_version(version_regex)
 xcode_version = get_xcode_version(version_regex)
 xcode_major   = xcode_version.split('.')[0]
-hostname      = get_hostname()
-labels        = ['iOS', 'xcode-' + xcode_version, 'xcode-' + xcode_major, 'macos-' + os_version, 'node-' + hostname.lower()]
+hostname      = get_hostname().lower()
+arch          = get_arch().lower()
+labels        = ['iOS', 'xcode-' + xcode_version, 'xcode-' + xcode_major, 'macos-' + os_version, 'node-' + hostname, 'arch-' + arch]
 
 server = jenkins.Jenkins(jenkins_host, username=username, password=password)
 if not server.node_exists(hostname):

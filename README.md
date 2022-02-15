@@ -2,13 +2,14 @@
 
 Adds a bunch of labels to macOS nodes in Jenkins.
 
-- macOS version
-- XCode version and XCode major version
-- node name
+- macOS version (`sw_vers -productVersion`)
+- XCode version and XCode major version (`xcodebuild -version`)
+- node name (`hostname`)
+- system architecture (`uname -p`)
 - additional labels
 
 examples
-`'iOS', 'xcode-13.1', 'xcode-13', 'macos-12.1', 'node-ios-build1'`
+`'iOS', 'xcode-13.1', 'xcode-13', 'macos-12.1', 'node-ios-build1', 'arch-arm'`
 
 ## Settings
 ```
